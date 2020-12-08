@@ -270,22 +270,38 @@
     /////////ngisi input jumlah/////////
     dibeli.addEventListener('input',function() {
       total.innerHTML = parseInt(dibeli.value)*parseInt(harga);
-      if(parseInt(dibeli.value) > 0) kurang.disabled = false;
+      if(parseInt(dibeli.value) == 0) kurang.disabled = false;
       if(parseInt(dibeli.value) >= parseInt(stok)) tambah.disabled = true;
     });
     function cek() {
-      if(parseInt(dibeli.innerHTML) > stok) {
-        dibeli.innerHTML = 0;
+      kurang.disabled = false;
+      if(parseInt(dibeli.value) == 0){
+        kurang.disabled = true;
+        tambah.disabled = false;
+      }
+      if(parseInt(dibeli.value) == parseInt(stok)) {
+        tambah.disabled = true;
+      }
+      else if(parseInt(dibeli.value) > stok) {
+        dibeli.value = 0;
         alert("Maaf, stok tidak mencukupi");
+        if(dibeli.value != stok) tambah.disabled = false;
       }
-      if(isNaN(parseInt(dibeli.innerHTML)) == true){
-        dibeli.innerHTML = 0;
+      else if(isNaN(parseInt(dibeli.value)) == true){
+        dibeli.value = 0;
         alert("Masukkan angka, bukan huruf");
+        if(dibeli.value != stok) tambah.disabled = false;
       }
-      if(parseInt(dibeli.innerHTML) < 0){
-        dibeli.innerHTML = 0;
-        alert("Angka tidak valid!")
+      else if(parseInt(dibeli.value) < 0){
+        dibeli.value = 0;
+        alert("Angka tidak valid!");
+        if(dibeli.value != stok) tambah.disabled = false;
       }
+      else{
+        kurang.disabled = false;
+        tambah.disabled = false;
+      }
+      total.innerHTML = parseInt(dibeli.value)*parseInt(harga);
     }
 
     //////////tombol kurang////////////
